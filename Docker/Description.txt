@@ -1,0 +1,3 @@
+01 - https://www.youtube.com/watch?v=n9uCgUzfeRQ - 09:00
+  docker builld .
+  docker run {containerId}
