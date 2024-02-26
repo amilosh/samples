@@ -1,1 +1,9 @@
 01 - Lambda function. Arrays sort by Comparator. Functional interface.
+  Consumer<T>
+    void accept(T t);
+  Function<T, R>
+    R apply(T t);
+  Predicate<T>
+    boolean test(T t
+  Supplier<T>
+    T get();
