@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  person-service:
+    image: person-service-image
+    container_name: person-service-container
+    restart: always
+    depends_on:
+      - person-service-mysql
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:mysql://person-service-mysql:3306/person_service
+      - SPRING_DATASOURCE_USERNAME=hello_service_username
+      - SPRING_DATASOURCE_PASSWORD=hello_service_password
+    ports:
+      - 8080:8080
+
+      
+  person-service-mysql:
+    image: mysql:8.3
+    container_name: person-service-mysql-container
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: person_service
+      MYSQL_USER: hello_service_username
+      MYSQL_PASSWORD: hello_service_password
+      MYSQL_ROOT_PASSWORD: root
