@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  person-service:
+    image: person-service-image
+    container_name: person-service-container
+    restart: always
+    depends_on:
+      - person-service-postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://person-service-postgres:5432/person_service
+      - SPRING_DATASOURCE_USERNAME=person_service_username
+      - SPRING_DATASOURCE_PASSWORD=person_service_password
+    ports:
+      - 8080:8080
+
+      
+  person-service-postgres:
+    image: postgres:16.2
+    container_name: person-service-postgres-container
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: person_service_username
+      POSTGRES_PASSWORD: person_service_password
+      POSTGRES_DB: person_service
