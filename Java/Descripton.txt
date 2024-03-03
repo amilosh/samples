@@ -7,3 +7,11 @@
     boolean test(T t
   Supplier<T>
     T get();
+
+02 - Java 8 features
+  default method in interface
+  functional interface
+  lambda expression
+  optional
+  stream
+  map
