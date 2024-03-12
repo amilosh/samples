@@ -1,0 +1,1 @@
+docker build -t consumer-service-image .
