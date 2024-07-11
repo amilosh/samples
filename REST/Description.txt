@@ -6,3 +6,6 @@ ResponseEntity.notFound if exception
 Exceptions take up a lot of resources. Need to remove exceptions.
 Use 'Result ot Exception' pattern -> returns FindCartEntriesResult.
 Need to remove instanceOf and third bracket: 'Visitor' pattern. We don't define Type of object and do something according to type; we allow object do something itself.
+
+02-01 - 
+class FindCartEntries with inner interface Result
