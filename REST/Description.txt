@@ -1,0 +1,8 @@
+01 - @RestController, ResponseEntity<?>, 
+ResponseEntity.ok if result
+ResponseEntity.notFound if exception
+
+02 - 
+Exceptions take up a lot of resources. Need to remove exceptions.
+Use 'Result ot Exception' pattern -> returns FindCartEntriesResult.
+Need to remove instanceOf and third bracket: 'Visitor' pattern. We don't define Type of object and do something according to type; we allow object do something itself.
