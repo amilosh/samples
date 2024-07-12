@@ -19,3 +19,5 @@
 03 - Java Enum
 
 04 - Java 17 features
+
+05 - Value Objects in Java

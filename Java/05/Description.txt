@@ -1,0 +1,11 @@
+Value object - objects which are equal according to their fields.
+Value object - unmodifable (final everywhere). In order to change Product Price - we have to create new Price and et to Product.
+We use Value objects for: phone number; email address; product price.
+
+Example:
+if class contains some UUID values - we can confuse wich field we use, see 
+  var position = positionRepository.find(workerOld.personId);
+
+If we use JabaBean specification we cannot use Record.
+
+Advantage. When we use PersonId - we can change UUID to Integer or to Double without changing the code on the high hierarchy.
