@@ -6,6 +6,7 @@ import pl.amilosh.rest_example.model.CartEntry;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -22,5 +23,11 @@ public abstract class DefaultCartService implements CartService {
         }
 
         throw new NoSuchElementException();
+    }
+
+    @Override
+    public Optional<Cart> findById(UUID cartId) {
+        var cart = new Cart();
+        return Optional.of(cart);
     }
 }

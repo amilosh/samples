@@ -1,6 +1,14 @@
 01 - @RestController, ResponseEntity<?>, 
 ResponseEntity.ok if result
+  .contentType(MediaType.APPLICATION_JSON)
+  .body(carts);
 ResponseEntity.notFound if exception
+@PostMapping
+  UriComponentsBuilder uriComponentsBuilder / URI location
+  Locale locale - defined by 'Accept-language' in http request
+MessageSource messageSource; // internationallization
+ResponseEntity.of(...)
+
 
 02 - 
 Exceptions take up a lot of resources. Need to remove exceptions.
