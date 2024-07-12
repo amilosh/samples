@@ -15,3 +15,7 @@
   optional
   stream
   map
+
+03 - Java Enum
+
+04 - Java 17 features
