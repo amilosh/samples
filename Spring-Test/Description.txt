@@ -1,0 +1,18 @@
+01
+testImplementation 'org.springframework.boot:spring-boot-starter-test'
+@ExtendWith(MockitoExtension.class)
+@Mock
+@InjectMocks
+doReturn(products).when(productService).getAll();
+Run with Coverage
+@DisplayName
+assertInstanceOf
+verifyNoMoreInteractions
+verifyNoInteractions
+-
+@SpringBootTest
+@AutoConfigureMockMvc(printOnlyOnFailure = false)
+MockMvc mockMvc;
+mockMvc.perform(requestBuilder)
+.andExpectAll(...)
+jsonPath
