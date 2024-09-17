@@ -1,0 +1,2 @@
+01 - https://www.youtube.com/watch?v=Bg2c02XQ7bg
+MessageSource messageSource, ResponseEntity.ok(), UriComponentsBuilder uriComponentsBuilder, Locale locale, UUID id

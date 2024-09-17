@@ -1,0 +1,7 @@
+POST http://localhost:8080/api/tasks
+-
+{
+    "details": " "
+}
+
+GET http://localhost:8080/api/tasks
