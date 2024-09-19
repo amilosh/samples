@@ -1,2 +1,6 @@
-01 - https://www.youtube.com/watch?v=Bg2c02XQ7bg
+01 - 
+https://www.youtube.com/watch?v=Bg2c02XQ7bg
 MessageSource messageSource, ResponseEntity.ok(), UriComponentsBuilder uriComponentsBuilder, Locale locale, UUID id
+https://www.youtube.com/watch?v=1wdYB8qdv1Q
+JUnit, Mockito, @ExtendWith(MockitoExtension.class), @Mock, @InjectMocks, @DisplayName, doReturn(), assertInstanceOf(), verifyNoMoreInteractions()
+Integratiion test, @SpringBootTest, @AutoConfigureMockMvc(printOnlyOnFailure = false), MockMvc mockMvc;, mockMvc.perform(requestBuilder), content().json()
