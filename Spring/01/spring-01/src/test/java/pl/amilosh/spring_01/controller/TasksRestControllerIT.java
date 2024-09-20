@@ -1,20 +1,15 @@
 package pl.amilosh.spring_01.controller;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
-import pl.amilosh.spring_01.model.Task;
-import pl.amilosh.spring_01.repository.InMemTaskRepository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -22,6 +17,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Sql("/sql/tasks_rest_controller/test_data.sql")
+@Transactional
 @SpringBootTest
 @AutoConfigureMockMvc(printOnlyOnFailure = false)
 public class TasksRestControllerIT {
@@ -29,22 +26,10 @@ public class TasksRestControllerIT {
     @Autowired
     MockMvc mockMvc;
 
-    @Autowired
-    InMemTaskRepository inMemTaskRepository;
-
-    @AfterEach
-    void tearDown() {
-        inMemTaskRepository.getTasks().clear();
-    }
-
     @Test
     void testGetAllTasks_ReturnsValidResponseEntity() throws Exception {
         // given
         var requestBuilder = get("/api/tasks");
-        inMemTaskRepository.getTasks().addAll(List.of(
-            new Task(UUID.fromString("71117396-8694-11ed-9ef6-77042ee83937"), "First task", false),
-            new Task(UUID.fromString("7172d834-8694-11ed-8669-d7b17d45fba8"), "Second task", true)
-        ));
 
         // when
         mockMvc.perform(requestBuilder)
@@ -70,7 +55,7 @@ public class TasksRestControllerIT {
     }
 
     @Test
-    void handleCreateNewTask_PayloadIsValid_ReturnsValidResponseEntity() throws Exception {
+    void testCreateNewTask_PayloadIsValid_ReturnsValidResponseEntity() throws Exception {
         // given
         var requestBuilder = post("/api/tasks")
             .contentType(MediaType.APPLICATION_JSON)
@@ -95,13 +80,10 @@ public class TasksRestControllerIT {
                     """),
                 jsonPath("$.id").exists()
             );
-
-        assertEquals(1, inMemTaskRepository.getTasks().size());
-        assertEquals("Third task", inMemTaskRepository.getTasks().get(0).details());
     }
 
     @Test
-    void handleCreateNewTask_PayloadIsInvalid_ReturnsValidResponseEntity() throws Exception {
+    void testCreateNewTask_PayloadIsInvalid_ReturnsValidResponseEntity() throws Exception {
         // given
         var requestBuilder = post("/api/tasks")
             .contentType(MediaType.APPLICATION_JSON)
