@@ -13,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import pl.amilosh.spring_01.dto.NewTaskPayload;
 import pl.amilosh.spring_01.exception.ErrorsPresentation;
 import pl.amilosh.spring_01.model.Task;
+import pl.amilosh.spring_01.model.User;
 import pl.amilosh.spring_01.repository.TaskRepository;
 
 import java.net.URI;
@@ -45,13 +46,14 @@ class TasksRestControllerTest {
     @DisplayName("GET /api/tasks returns HTTP-response with status 200 OK and with list of tasks")
     void testGetAllTasks_ReturnsValidResponseEntity() {
         // given
+        var user = new User(UUID.randomUUID(), "user1", "password1");
         var tasks = List.of(
-            new Task(UUID.randomUUID(), "First task", false),
-            new Task(UUID.randomUUID(), "Second task", true));
-        doReturn(tasks).when(taskRepository).findAll();
+            new Task(UUID.randomUUID(), "First task", false, user.id()),
+            new Task(UUID.randomUUID(), "Second task", true, user.id()));
+        doReturn(tasks).when(taskRepository).findByUserId(user.id());
 
         // when
-        var responseEntity = tasksRestController.getAllTasks();
+        var responseEntity = tasksRestController.getAllTasks(user);
 
         // then
         assertNotNull(responseEntity);
@@ -63,10 +65,13 @@ class TasksRestControllerTest {
     @Test
     void testCreateNewTask_PayloadIsValid_ReturnsValidResponseEntity() {
         // given
+        var user = new User(UUID.randomUUID(), "user1", "password1");
         var details = "Third task";
 
         // when
-        var responseEntity = tasksRestController.createNewTask(new NewTaskPayload(details),
+        var responseEntity = tasksRestController.createNewTask(
+            user,
+            new NewTaskPayload(details),
             UriComponentsBuilder.fromUriString("http://localhost:8080"), Locale.ENGLISH);
 
         // then
@@ -92,6 +97,7 @@ class TasksRestControllerTest {
     @Test
     void testCreateNewTask_PayloadIsInvalid_ReturnsValidResponseEntity() {
         // given
+        var user = new User(UUID.randomUUID(), "user1", "password1");
         var details = "   ";
         var locale = Locale.US;
         var errorMessage = "Details is empty";
@@ -100,7 +106,9 @@ class TasksRestControllerTest {
             .getMessage("tasks.create.details.errors.not_set", new Object[0], locale);
 
         // when
-        var responseEntity = tasksRestController.createNewTask(new NewTaskPayload(details),
+        var responseEntity = tasksRestController.createNewTask(
+            user,
+            new NewTaskPayload(details),
             UriComponentsBuilder.fromUriString("http://localhost:8080"), locale);
 
         // then

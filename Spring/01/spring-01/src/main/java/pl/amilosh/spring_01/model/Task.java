@@ -5,9 +5,10 @@ import java.util.UUID;
 public record Task(
     UUID id,
     String details,
-    boolean completed) {
+    boolean completed,
+    UUID userId) {
 
-    public Task(String details) {
-        this(UUID.randomUUID(), details, false);
+    public Task(String details, UUID userId) {
+        this(UUID.randomUUID(), details, false, userId);
     }
 }

@@ -28,6 +28,13 @@ public class InMemTaskRepository implements TaskRepository {
             .findFirst();
     }
 
+    @Override
+    public List<Task> findByUserId(UUID id) {
+        return tasks.stream()
+            .filter(task -> task.userId().equals(id))
+            .toList();
+    }
+
     public List<Task> getTasks() {
         return tasks;
     }

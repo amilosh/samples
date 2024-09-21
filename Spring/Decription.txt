@@ -1,8 +1,13 @@
 01 - 
 https://www.youtube.com/watch?v=Bg2c02XQ7bg
 MessageSource messageSource, ResponseEntity.ok(), UriComponentsBuilder uriComponentsBuilder, Locale locale, UUID id
+
 https://www.youtube.com/watch?v=1wdYB8qdv1Q
 JUnit, Mockito, @ExtendWith(MockitoExtension.class), @Mock, @InjectMocks, @DisplayName, doReturn(), assertInstanceOf(), verifyNoMoreInteractions()
 Integratiion test, @SpringBootTest, @AutoConfigureMockMvc(printOnlyOnFailure = false), MockMvc mockMvc;, mockMvc.perform(requestBuilder), content().json()
+
 https://www.youtube.com/watch?v=zngBHA8iFxw
 Integratiion test - testcontainers, org.flywaydb:flyway-database-postgresql, org.testcontainers:postgresql, @Sql("/sql/tasks_rest_controller/test_data.sql"), JdbcOperations, RowMapper<Task>
+
+https://www.youtube.com/watch?v=GJQV4JChWyk
+spring-boot-starter-security, spring-security-test, @WithMockUser, .with(httpBasic("user1", "password1"));, SecurityFilterChain, @AuthenticationPrincipal User user, User implements UserDetails, AppUserDetailsService extends MappingSqlQuery<User> implements UserDetailsService, create unique index idx_user_username on users (username);

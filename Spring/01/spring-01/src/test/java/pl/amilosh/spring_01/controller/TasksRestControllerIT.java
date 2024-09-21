@@ -6,10 +6,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -27,9 +29,11 @@ public class TasksRestControllerIT {
     MockMvc mockMvc;
 
     @Test
+    @WithMockUser
     void testGetAllTasks_ReturnsValidResponseEntity() throws Exception {
         // given
-        var requestBuilder = get("/api/tasks");
+        var requestBuilder = get("/api/tasks")
+            .with(httpBasic("user1", "password1"));
 
         // when
         mockMvc.perform(requestBuilder)
@@ -42,12 +46,8 @@ public class TasksRestControllerIT {
                         {
                             "id": "71117396-8694-11ed-9ef6-77042ee83937",
                             "details": "First task",
-                            "completed": false
-                        },
-                        {
-                            "id": "7172d834-8694-11ed-8669-d7b17d45fba8",
-                            "details": "Second task",
-                            "completed": true
+                            "completed": false,
+                            "userId": "5d730ada-9c91-11ed-bef5-631db7f28980"
                         }
                     ]
                     """)
@@ -58,6 +58,7 @@ public class TasksRestControllerIT {
     void testCreateNewTask_PayloadIsValid_ReturnsValidResponseEntity() throws Exception {
         // given
         var requestBuilder = post("/api/tasks")
+            .with(httpBasic("user2", "password2"))
             .contentType(MediaType.APPLICATION_JSON)
             .content("""
                 {
@@ -86,6 +87,7 @@ public class TasksRestControllerIT {
     void testCreateNewTask_PayloadIsInvalid_ReturnsValidResponseEntity() throws Exception {
         // given
         var requestBuilder = post("/api/tasks")
+            .with(httpBasic("user1", "password1"))
             .contentType(MediaType.APPLICATION_JSON)
             .header(HttpHeaders.ACCEPT_LANGUAGE, "en")
             .content("""

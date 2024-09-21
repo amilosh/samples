@@ -3,6 +3,7 @@ package pl.amilosh.spring_01.controller;
 import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import pl.amilosh.spring_01.dto.NewTaskPayload;
 import pl.amilosh.spring_01.exception.ErrorsPresentation;
 import pl.amilosh.spring_01.model.Task;
+import pl.amilosh.spring_01.model.User;
 import pl.amilosh.spring_01.repository.TaskRepository;
 
 import java.util.List;
@@ -35,15 +37,16 @@ public class TasksRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Task>> getAllTasks() {
+    public ResponseEntity<List<Task>> getAllTasks(@AuthenticationPrincipal User user) {
         return ResponseEntity.ok()
             .contentType(MediaType.APPLICATION_JSON)
-            .body(taskRepository.findAll());
+            .body(taskRepository.findByUserId(user.id()));
     }
 
     @PostMapping
     @Transactional
     public ResponseEntity<?> createNewTask(
+        @AuthenticationPrincipal User user,
         @RequestBody NewTaskPayload payload,
         UriComponentsBuilder uriComponentsBuilder,
         Locale locale) {
@@ -56,7 +59,7 @@ public class TasksRestController {
                 .body(new ErrorsPresentation(
                     List.of(message)));
         } else {
-            var task = new Task(payload.details());
+            var task = new Task(payload.details(), user.id());
             taskRepository.save(task);
             return ResponseEntity.created(uriComponentsBuilder
                     .path("/api/tasks/{taskId}")
