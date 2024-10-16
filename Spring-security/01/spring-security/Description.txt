@@ -10,3 +10,14 @@ http://localhost:8080/hello.htm - with:
     Authorization: Basic dXNlcjpmNWM3MmM3Mi1mZmZhLTRkMzAtOGU3ZC00Yzc4ODEwMGF
 browser keeps creds in cache
 Server - STATELESS policy. Each request - with creds (Authorization header)
+
+2)
+Form auth.
+http://localhost:8080/hello.html -> browser creates Cookie JSESSIONID=1 (for Tomcat)
+  returns 302 with Location http://localhost:8080/login
+user enter creds -> browser create Cookie JSESSIONID=2 with creds
+  and redirects to
+    http://localhost:8080/hello.html?continue
+    or
+    http://localhost:8080/main page (we can define)
+finally: user GET http://localhost:8080/hello.html with JSESSIONID=2
