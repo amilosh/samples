@@ -1,0 +1,12 @@
+1)
+Basic auth.
+.httpBasic(withDefaults())
+After starting Spring will generate password.
+http://localhost:8080/hello.html -> browser will show login window
+  user
+  f5c72c72-fffa-4d30-8e7d-4c788100adff
+http://localhost:8080/hello.htm - with:
+  header
+    Authorization: Basic dXNlcjpmNWM3MmM3Mi1mZmZhLTRkMzAtOGU3ZC00Yzc4ODEwMGF
+browser keeps creds in cache
+Server - STATELESS policy. Each request - with creds (Authorization header)
