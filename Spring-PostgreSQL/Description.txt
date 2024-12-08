@@ -1,0 +1,9 @@
+01
+spring-boot-starter-jdbc
+org.postgresql:postgresql
+org.flywaydb:flyway-core
+testImplementation 'org.testcontainers:postgresql'
+private final JdbcOperations jdbcOperations;
+  jdbcOperations.update
+  RowMapper<Product>
+  public Product mapRow(ResultSet rs, int rowNum)
