@@ -16,15 +16,15 @@ import pl.amilosh.producerservice.kafka.KafkaProducer;
 @RequiredArgsConstructor
 public class PersonController {
 
-//    private final ObjectMapper objectMapper;
-//    private final KafkaProducer kafkaProducer;
-//
-//    @GetMapping("/send-message/{username}/{message}")
-//    public PersonEvent sendMessage(@PathVariable(name = "username") String username,
-//                                   @PathVariable(name = "message") String message) throws JsonProcessingException {
-//        var personEvent = new PersonEvent(username, message);
-//        var personEventAsString = objectMapper.writeValueAsString(personEvent);
-//        kafkaProducer.sendMessage("person", personEventAsString);
-//        return personEvent;
-//    }
+    private final ObjectMapper objectMapper;
+    private final KafkaProducer kafkaProducer;
+
+    @GetMapping("/send-message/{username}/{message}")
+    public PersonEvent sendMessage(@PathVariable(name = "username") String username,
+                                   @PathVariable(name = "message") String message) throws JsonProcessingException {
+        var personEvent = new PersonEvent(username, message);
+        var personEventAsString = objectMapper.writeValueAsString(personEvent);
+        kafkaProducer.sendMessage("person", personEventAsString);
+        return personEvent;
+    }
 }

@@ -1,0 +1,20 @@
+cd C:\ProjectsJava\faang\CorporationX\infra\kafka
+docker-compose up -d
+
+
+./kafka-topics.sh --list --bootstrap-server localhost:9092
+./kafka-topics.sh --create --topic test-kafka-topic-1 --bootstrap-server localhost:9092
+
+
+a)
+cd C:\ProjectsJava\faang\CorporationX\infra\kafka
+docker-compose exec kafka-1 /opt/bitnami/kafka/bin/kafka-topics.sh --list --bootstrap-server localhost:9092
+
+b)
+cd C:\programs\kafka\bin\windows
+kafka-topics.bat --create --topic test-kafka-topic-2 --bootstrap-server localhost:9092,localhost:9096
+kafka-topics.bat --list --bootstrap-server host.docker.internal:9092
+kafka-topics.bat --list --bootstrap-server localhost:9094
+  (host.docker.internal - указывает на 127.0.0.1)
+
+docker-compose --env-file environment.env up -d

@@ -1,0 +1,8 @@
+cd C:\programs\kafka\bin\windows
+kafka-storage.bat random-uuid
+kafka-storage.bat format -t gMRa6JVIQAGTRBxfALiUIg -c C:\programs\kafka\config\kraft\server-1.properties x3
+kafka-server-start.bat C:\programs\kafka\config\kraft\server-1.properties x3
+
+kafka-topics.bat --describe --bootstrap-server localhost:9092,localhost:9094,localhost:9096
+
+kafka-console-consumer.bat --bootstrap-server localhost:9092,localhost:9094,localhost:9096 --topic product-create-events-topic --property "print.key=true"
